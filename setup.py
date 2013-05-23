@@ -13,7 +13,7 @@ def read(fname):
 
 setup(
     name="couchdblogger",
-    version='0.0.1',
+    version='0.0.3',
     description=read('DESCRIPTION'),
     keywords="couchdb logging logger handler",
     author="Rinat F Sabitov",
@@ -22,7 +22,7 @@ setup(
     maintainer_email='rinat.sabitov@gmail.com',
     url="https://github.com/histrio/python-couchdblogger",
     package_dir={'': 'src'},
-    packages=find_packages("src"),
+    packages=[".",],
     classifiers=[
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
