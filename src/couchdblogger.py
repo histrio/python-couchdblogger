@@ -1,11 +1,13 @@
 '''
 File: couchdblogger.py
 Author: Rinat F Sabitov
+Contributor: Federico Gonzalez
 Description:
 '''
 import logging
 import json
 import requests
+
 
 class CouchDBSession(requests.Session):
 
@@ -19,7 +21,6 @@ class CouchDBSession(requests.Session):
         return resp
 
 
-
 class CouchDBLogHandler(logging.StreamHandler):
 
     def __init__(self, host='localhost', port=5984, database='logs',
@@ -28,12 +29,12 @@ class CouchDBLogHandler(logging.StreamHandler):
 
         self.database = database
         self.port = port
-        self.database = database
 
         self.url = "http://%(host)s:%(port)d" % dict(
             host=host,
             port=port,
         )
+
         self.db_url = "%(url)s/%(database)s" % dict(
             url=self.url,
             database=database
@@ -41,9 +42,9 @@ class CouchDBLogHandler(logging.StreamHandler):
 
         self.session = CouchDBSession()
         if username:
-            self.session.PUT(self.url+'/_session', data={
-                name:username,
-                password:password
+            self.session.post(self.url+'/_session', data={
+                'name': username,
+                'password': password
             })
 
     def format(self, record):
@@ -60,4 +61,3 @@ class CouchDBLogHandler(logging.StreamHandler):
         self.session.post(self.db_url, data=self.format(record),
             headers=headers
         )
-
