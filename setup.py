@@ -21,8 +21,6 @@ setup(
     author_email="rinat.sabitov@gmail.ru",
     maintainer='Rinat F Sabitov',
     maintainer_email='rinat.sabitov@gmail.com',
-    contributor='Federico Gonzalez',
-    contributor_email='federicogonzalez761@gmail.com',
     url="https://github.com/histrio/python-couchdblogger",
     package_dir={'': 'src'},
     packages=[".",],
@@ -41,4 +39,7 @@ setup(
     include_package_data=True,
     zip_safe=False,
     long_description=read('README'),
+    test_suite='test',
+    tests_require=['mock==1.0.1',
+		   'nose==1.3.1'],
 )
