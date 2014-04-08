@@ -1,15 +1,12 @@
 python-couchdblogger
 ====================
 
-
-На скорую руку написал модуль для логирования в couchdb. Вероятноm, мало еще кому придет в голову писать логи в такю медленную на вставку БД, но все же.
+Simple module for logging to CouchDB. 
+Probably not best choise for logging backend, because CouchDB is not good with massive write operations. 
 
     https://pypi.python.org/pypi/couchdblogger
 
-Пример использования:
-
-.. code:: python 
-    :number-lines:
+Usage:
 
     import couchdblogger
 
