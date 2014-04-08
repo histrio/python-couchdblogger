@@ -58,7 +58,7 @@ class CouchDBSessionTest(unittest.TestCase):
 
     def test_request_resp_401_unauthorized(self):
         request_resp = Mock()
-        request_resp.status_code = 404
+        request_resp.status_code = 401
         with patch('requests.Session.request', Mock(return_value=request_resp)) as requests_mock:
             with self.assertRaises(CouchDBSession.CouchDBException):
                 self.couchdb_session.post('http://localhost:5984/_session', data={
