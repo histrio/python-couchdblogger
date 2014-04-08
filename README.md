@@ -16,3 +16,15 @@ python-couchdblogger
     logger = logging.getLogger('mylogger')
     logger.setLevel('ERROR')
     logger.addHandler(couchdblogger.CouchDBLogHandler())
+
+Run tests with:
+
+    nosetests -vv
+
+  or:
+
+    ipython test/test_*.py
+
+Run nosetests with coverage:
+
+    nosetests --with-coverage; coverage report
