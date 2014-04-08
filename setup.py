@@ -1,5 +1,6 @@
 # -*- coding: utf-8 -*-
-import sys,os
+import sys
+import os
 from setuptools import setup, find_packages
 
 sys.path.insert(0, os.path.abspath("src"))
@@ -20,6 +21,8 @@ setup(
     author_email="rinat.sabitov@gmail.ru",
     maintainer='Rinat F Sabitov',
     maintainer_email='rinat.sabitov@gmail.com',
+    contributor='Federico Gonzalez',
+    contributor_email='federicogonzalez761@gmail.com',
     url="https://github.com/histrio/python-couchdblogger",
     package_dir={'': 'src'},
     packages=[".",],
@@ -39,6 +42,3 @@ setup(
     zip_safe=False,
     long_description=read('README'),
 )
-
-
-
