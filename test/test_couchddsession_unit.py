@@ -1,3 +1,8 @@
+'''
+    File: test_couchddsession_unit.py
+    Author: Federico Gonzalez
+    Description: Tests - CouchDBSession
+'''
 from mock import Mock, patch
 from src.couchdblogger import CouchDBSession, requests
 import unittest
