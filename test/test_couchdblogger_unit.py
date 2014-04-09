@@ -22,7 +22,7 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.assertIsInstance(self.couchdb_handler, CouchDBLogHandler, "Is instance of CouchDBLogHandler")
         self.assertTrue(issubclass(CouchDBLogHandler, logging.StreamHandler), "Is subclass CouchDBLogHandler of logging.StreamHandler")
 
-    @patch.object(logging.StreamHandler,'__init__')
+    @patch.object(logging.StreamHandler, '__init__')
     def test_init_username_none(self, *args):
         self.assertFalse(logging.StreamHandler.__init__.called, "")
         self.assertEqual(self.couchdb_handler.port, 5984, "")
@@ -32,7 +32,7 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.assertIsInstance(self.couchdb_handler.session, CouchDBSession, "")
 
     @patch.object(CouchDBSession, 'post')
-    @patch.object(logging.StreamHandler,'__init__')
+    @patch.object(logging.StreamHandler, '__init__')
     def test_init_username_not_is_none(self, *args):
         self.assertFalse(logging.StreamHandler.__init__.called, "")
         self.assertFalse(CouchDBSession.post.called, "")
