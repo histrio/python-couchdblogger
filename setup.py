@@ -14,13 +14,13 @@ def read(fname):
 
 setup(
     name="couchdblogger",
-    version='0.0.4',
+    version='0.0.5',
     description=read('DESCRIPTION'),
     keywords="couchdb logging logger handler",
-    author="Rinat F Sabitov",
-    author_email="rinat.sabitov@gmail.ru",
-    maintainer='Rinat F Sabitov',
-    maintainer_email='rinat.sabitov@gmail.com',
+    author="Rinat F Sabitov, Federico Gonzalez",
+    author_email="rinat.sabitov@gmail.ru, federicogonzalez761@gmail.com",
+    maintainer='Rinat F Sabitov, Federico Gonzalez',
+    maintainer_email='rinat.sabitov@gmail.com, federicogonzalez761@gmail.com',
     url="https://github.com/histrio/python-couchdblogger",
     package_dir={'': 'src'},
     packages=[".",],

@@ -1,5 +1,5 @@
 '''
-    File: test_couchddsession_unit.py
+    File: test_couchdbsession_unit.py
     Author: Federico Gonzalez
     Description: Tests - CouchDBSession
 '''
