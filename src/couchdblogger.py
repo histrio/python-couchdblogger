@@ -83,7 +83,7 @@ class CouchDBLogHandler(logging.StreamHandler):
             sys.stdout or sys.stderr may be used.
     """
 
-    def __init__(self, host='localhost', port=5984, database='logs',
+    def __init__(self, host='localhost', port=5984, database='logs', create_database=False,
         username=None, password=None):
         """
             Initialize the couchdb handler
@@ -93,6 +93,7 @@ class CouchDBLogHandler(logging.StreamHandler):
         :param database: database's name for logging
         :param username: user's name for logging in the database
         :param password: password for logging in the database
+        :param create_database: boolean to create the database if it does not exist
         """
         super(CouchDBLogHandler, self).__init__()
 
@@ -115,6 +116,12 @@ class CouchDBLogHandler(logging.StreamHandler):
                 'name': username,
                 'password': password
             })
+
+        if create_database:
+            try:
+                self.session.get(self.db_url)
+            except CouchDBSession.CouchDBException:
+                self.session.put(self.db_url)
 
     def format(self, record):
         """
