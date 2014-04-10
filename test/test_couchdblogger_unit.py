@@ -22,7 +22,7 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.assertIsInstance(self.couchdb_handler, CouchDBLogHandler, "Is instance of CouchDBLogHandler")
         self.assertTrue(issubclass(CouchDBLogHandler, logging.StreamHandler), "Is subclass CouchDBLogHandler of logging.StreamHandler")
 
-    @patch.object(logging.StreamHandler,'__init__')
+    @patch.object(logging.StreamHandler, '__init__')
     def test_init_username_none(self, *args):
         self.assertFalse(logging.StreamHandler.__init__.called, "")
         self.assertEqual(self.couchdb_handler.port, 5984, "")
@@ -31,8 +31,40 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.assertEqual(self.couchdb_handler.db_url, 'http://localhost:5984/logs', "")
         self.assertIsInstance(self.couchdb_handler.session, CouchDBSession, "")
 
+    @patch.object(logging.StreamHandler, '__init__')
+    @patch.object(CouchDBSession, 'get')
+    def test_init_username_none_create_database_exist(self, *args):
+        self.couchdb_handler = CouchDBLogHandler(create_database=True)
+        self.assertTrue(logging.StreamHandler.__init__.called, "")
+        self.assertEqual(self.couchdb_handler.port, 5984, "")
+        self.assertEqual(self.couchdb_handler.url, 'http://localhost:5984', "")
+        self.assertEqual(self.couchdb_handler.database, 'logs', "")
+        self.assertEqual(self.couchdb_handler.db_url, 'http://localhost:5984/logs', "")
+        self.assertIsInstance(self.couchdb_handler.session, CouchDBSession, "")
+        self.assertTrue(CouchDBSession.get.called, "")
+        self.assertEqual(CouchDBSession.get.call_args[0][0], 'http://localhost:5984/logs', "")
+
+    @patch.object(logging.StreamHandler, '__init__')
+    @patch.object(CouchDBSession, 'put')
+    def test_init_username_none_create_database_not_exist(self, *args):
+
+        def get_raise(_, url):
+            self.assertEqual(url, 'http://localhost:5984/logs', "")
+            raise CouchDBSession.CouchDBException
+        CouchDBSession.get = get_raise
+
+        self.couchdb_handler = CouchDBLogHandler(create_database=True)
+        self.assertTrue(logging.StreamHandler.__init__.called, "")
+        self.assertEqual(self.couchdb_handler.port, 5984, "")
+        self.assertEqual(self.couchdb_handler.url, 'http://localhost:5984', "")
+        self.assertEqual(self.couchdb_handler.database, 'logs', "")
+        self.assertEqual(self.couchdb_handler.db_url, 'http://localhost:5984/logs', "")
+        self.assertIsInstance(self.couchdb_handler.session, CouchDBSession, "")
+        self.assertTrue(CouchDBSession.put.called, "")
+        self.assertEqual(CouchDBSession.put.call_args[0][0], 'http://localhost:5984/logs', "")
+
     @patch.object(CouchDBSession, 'post')
-    @patch.object(logging.StreamHandler,'__init__')
+    @patch.object(logging.StreamHandler, '__init__')
     def test_init_username_not_is_none(self, *args):
         self.assertFalse(logging.StreamHandler.__init__.called, "")
         self.assertFalse(CouchDBSession.post.called, "")
