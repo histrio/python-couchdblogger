@@ -123,6 +123,17 @@ class CouchDBLogHandler(logging.StreamHandler):
             except CouchDBSession.CouchDBException:
                 self.session.put(self.db_url)
 
+    def new_format(self, format_function):
+        """
+            Change the format logging
+
+        :param format_function: function to generate couchdb logs from logging record
+        
+        REQUIRED: The function must return a json.dumps to post in couchdb
+        
+        """
+        self.format = format_function
+
     def format(self, record):
         """
             Format a logging record to couchdb record
