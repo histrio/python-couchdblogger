@@ -6,6 +6,7 @@
 from mock import Mock, patch
 from src.couchdblogger import CouchDBLogHandler, CouchDBSession, logging
 import unittest
+import json
 
 
 class CouchDBLogHandlerTest(unittest.TestCase):
@@ -96,6 +97,30 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.assertIsNotNone(CouchDBSession.post.call_args[1]['headers'], "")
         self.assertEqual(CouchDBSession.post.call_args[1]['data'], '{"logger": "process_name", "created": 1396988156, "message": "log to couchdb", "level": "level INFO"}', "")
         self.assertEqual(CouchDBSession.post.call_args[1]['headers']['Content-type'], 'application/json', "")
+
+    def test_new_format(self):
+
+        def format_function(record):
+            json_to_post = json.dumps(dict(
+                message=record.msg,
+                log_level=record.levelname,
+                name_logger=record.name,
+                extra_message='message',
+                log_date_time=record.asctime
+            ))
+            return json_to_post
+
+        self.couchdb_handler.new_format(format_function)
+
+        self.assertEqual(id(format_function), id(self.couchdb_handler.format), "")
+
+    def test_new_format_with_lambda(self):
+        id_format = id(self.couchdb_handler.format)
+        self.couchdb_handler.new_format(lambda record: json.dumps(dict(message=record.msg, log_level=record.levelname, name_logger=record.name, extra_message='message', log_date_time=record.asctime)))
+
+        self.assertNotEqual(id_format, id(self.couchdb_handler.format), "")
+        self.assertEqual(self.couchdb_handler.format.func_name, '<lambda>', "")
+
 
 if __name__ == '__main__':
     unittest.TextTestRunner(verbosity=2).run(unittest.TestLoader().loadTestsFromTestCase(CouchDBLogHandlerTest))
