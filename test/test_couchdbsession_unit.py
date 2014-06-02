@@ -38,6 +38,26 @@ class CouchDBSessionTest(unittest.TestCase):
             self.assertEqual(len(requests_mock.call_args_list), 1, "")
             self.assertEqual(resp, request_resp, "")
 
+    def test_request_resp_200_ok_with_verify(self):
+        request_resp = Mock()
+        request_resp.status_code = 200
+        self.couchdb_session = CouchDBSession(request_args = {"verify": True})
+        with patch('requests.Session.request', Mock(return_value=request_resp)) as requests_mock:
+            resp = self.couchdb_session.post('https://localhost:5984/_session', data={
+                'name': 'username',
+                'password': 'password'
+            })
+
+            self.assertTrue(requests_mock.called, "")
+            self.assertEqual(requests_mock.call_args[0][0], 'POST', "")
+            self.assertEqual(requests_mock.call_args[0][1], 'https://localhost:5984/_session', "")
+            self.assertIsNotNone(requests_mock.call_args[1]['data'], "")
+            self.assertEqual(requests_mock.call_args[1]['data']['name'], 'username', "")
+            self.assertEqual(requests_mock.call_args[1]['data']['password'], 'password', "")
+            self.assertTrue(requests_mock.call_args[1]['verify'], "")
+            self.assertEqual(len(requests_mock.call_args_list), 1, "")
+            self.assertEqual(resp, request_resp, "")
+
     def test_request_resp_404_not_found(self):
         request_resp = Mock()
         request_resp.status_code = 404
