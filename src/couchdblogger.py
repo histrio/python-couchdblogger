@@ -18,7 +18,7 @@ class CouchDBSession(requests.Session):
         requests.Session:
             Provides cookie persistence, connection-pooling, and configuration.
     """
-    
+
     def __init__(self, request_args=None):
         """
             Initialize the couchdb session
@@ -115,7 +115,7 @@ class CouchDBLogHandler(logging.StreamHandler):
         self.database = database
         self.port = port
         self.ssl = ssl
-        
+
         if self.ssl:
             protocol = 'https'
             if username:
