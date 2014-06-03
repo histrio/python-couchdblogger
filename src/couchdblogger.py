@@ -19,6 +19,18 @@ class CouchDBSession(requests.Session):
             Provides cookie persistence, connection-pooling, and configuration.
     """
 
+    def __init__(self, request_args=None):
+        """
+            Initialize the couchdb session
+
+        :param request_args; args for request
+        """
+        super(CouchDBSession, self).__init__()
+        if request_args:
+            self.request_args = request_args
+        else:
+            self.request_args = {}
+
     class CouchDBException(Exception):
         """
             CouchDBException that inherits from Exception
@@ -66,6 +78,7 @@ class CouchDBSession(requests.Session):
         :param cert: (optional) if String, path to ssl client cert file (.pem).
             If Tuple, ('cert', 'key') pair.
         """
+        kwargs.update(self.request_args)
         resp = super(CouchDBSession, self).request(*args, **kwargs)
         if resp.status_code >= 400:
             raise self.CouchDBException(resp.text)
@@ -84,7 +97,7 @@ class CouchDBLogHandler(logging.StreamHandler):
     """
 
     def __init__(self, host='localhost', port=5984, database='logs',
-        create_database=False, username=None, password=None):
+        create_database=False, username=None, password=None, ssl=False, request_args=None):
         """
             Initialize the couchdb handler
 
@@ -94,13 +107,28 @@ class CouchDBLogHandler(logging.StreamHandler):
         :param username: user's name for logging in the database
         :param password: password for logging in the database
         :param create_database: bool to create the database if it does not exist
+        :param ssl: bool to use ssl (https)
+        :param request_args; json args for request
         """
         super(CouchDBLogHandler, self).__init__()
 
         self.database = database
         self.port = port
+        self.ssl = ssl
 
-        self.url = "http://%(host)s:%(port)d" % dict(
+        if self.ssl:
+            protocol = 'https'
+            if username:
+                host = "%(username)s:%(password)s@%(host)s" % dict(
+                    username=username,
+                    password=password,
+                    host=host
+                )
+        else:
+            protocol = 'http'
+
+        self.url = "%(protocol)s://%(host)s:%(port)d" % dict(
+            protocol=protocol,
             host=host,
             port=port,
         )
@@ -110,7 +138,7 @@ class CouchDBLogHandler(logging.StreamHandler):
             database=database
         )
 
-        self.session = CouchDBSession()
+        self.session = CouchDBSession(request_args=request_args)
         if username:
             self.session.post(self.url+'/_session', data={
                 'name': username,

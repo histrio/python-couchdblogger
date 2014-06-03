@@ -13,6 +13,14 @@ Usage:
     logger = logging.getLogger('mylogger')
     logger.setLevel('ERROR')
     logger.addHandler(couchdblogger.CouchDBLogHandler())
+   
+Usage with ssl:
+
+    import couchdblogger
+
+    logger = logging.getLogger('mylogger')
+    logger.setLevel('ERROR')
+    logger.addHandler(couchdblogger.CouchDBLogHandler(ssl=True, request_args={"verify": True}))
 
 Run tests with:
 
