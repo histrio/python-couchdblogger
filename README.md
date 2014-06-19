@@ -1,4 +1,4 @@
-python-couchdblogger
+Python-couchdblogger
 ====================
 
 Simple module for logging to CouchDB. 
@@ -33,3 +33,8 @@ Run tests with:
 Run nosetests with coverage:
 
     nosetests --with-coverage; coverage report
+
+Tests:
+-----
+
+[![Build Status](https://drone.io/github.com/FedeG/python-couchdblogger/status.png)](https://drone.io/github.com/FedeG/python-couchdblogger/latest)
