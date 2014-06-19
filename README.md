@@ -22,13 +22,22 @@ Usage with ssl:
     logger.setLevel('ERROR')
     logger.addHandler(couchdblogger.CouchDBLogHandler(ssl=True, request_args={"verify": True}))
 
-Run tests with:
+Script to run tests:
+--------------------
 
-    nosetests -vv
+1- Install:
+
+    python setup.py install
+    pip install mock
+    pip install nose
+
+2- Run tests:
+
+    python setup.py test
 
   or:
 
-    ipython test/test_*.py
+    nosetests -vv
 
 Run nosetests with coverage:
 
