@@ -14,7 +14,7 @@ def read(fname):
 
 setup(
     name="couchdblogger",
-    version='0.0.7',
+    version='0.0.8',
     description=read('DESCRIPTION'),
     keywords="couchdb logging logger handler",
     author="Rinat F Sabitov, Federico Gonzalez",
@@ -40,6 +40,6 @@ setup(
     zip_safe=False,
     long_description=read('README'),
     test_suite='test',
-    tests_require=['mock==1.0.1',
-		   'nose==1.3.1'],
+    tests_require=['mock',
+		   'nose'],
 )

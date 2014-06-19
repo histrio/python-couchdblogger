@@ -26,10 +26,7 @@ class CouchDBSession(requests.Session):
         :param request_args; args for request
         """
         super(CouchDBSession, self).__init__()
-        if request_args:
-            self.request_args = request_args
-        else:
-            self.request_args = {}
+        self.request_args = request_args or {}
 
     class CouchDBException(Exception):
         """
