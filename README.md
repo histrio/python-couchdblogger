@@ -1,4 +1,4 @@
-Python-couchdblogger
+python-couchdblogger
 ====================
 
 Simple module for logging to CouchDB. 
