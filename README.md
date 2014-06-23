@@ -47,3 +47,4 @@ Tests:
 -----
 
 [![Build Status](https://drone.io/github.com/FedeG/python-couchdblogger/status.png)](https://drone.io/github.com/FedeG/python-couchdblogger/latest)
+[![Requirements Status](https://requires.io/github/histrio/python-couchdblogger/requirements.png?branch=master)](https://requires.io/github/histrio/python-couchdblogger/requirements/?branch=master)
