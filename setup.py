@@ -14,7 +14,7 @@ def read(fname):
 
 setup(
     name="couchdblogger",
-    version='0.0.8',
+    version='0.0.9',
     description=read('DESCRIPTION'),
     keywords="couchdb logging logger handler",
     author="Rinat F Sabitov, Federico Gonzalez",

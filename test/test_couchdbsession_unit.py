@@ -30,7 +30,7 @@ class CouchDBSessionTest(unittest.TestCase):
             })
 
             self.assertTrue(requests_mock.called, "")
-            self.assertEqual(requests_mock.call_args[0][0], 'post', "")
+            self.assertEqual(requests_mock.call_args[0][0], 'POST', "")
             self.assertEqual(requests_mock.call_args[0][1], 'http://localhost:5984/_session', "")
             self.assertIsNotNone(requests_mock.call_args[1]['data'], "")
             self.assertEqual(requests_mock.call_args[1]['data']['name'], 'username', "")
@@ -49,7 +49,7 @@ class CouchDBSessionTest(unittest.TestCase):
             })
 
             self.assertTrue(requests_mock.called, "")
-            self.assertEqual(requests_mock.call_args[0][0], 'post', "")
+            self.assertEqual(requests_mock.call_args[0][0], 'POST', "")
             self.assertEqual(requests_mock.call_args[0][1], 'https://localhost:5984/_session', "")
             self.assertIsNotNone(requests_mock.call_args[1]['data'], "")
             self.assertEqual(requests_mock.call_args[1]['data']['name'], 'username', "")
@@ -69,7 +69,7 @@ class CouchDBSessionTest(unittest.TestCase):
             })
 
             self.assertTrue(requests_mock.called, "")
-            self.assertEqual(requests_mock.call_args[0][0], 'post', "")
+            self.assertEqual(requests_mock.call_args[0][0], 'POST', "")
             self.assertEqual(requests_mock.call_args[0][1], 'http://localhost:5984/_session', "")
             self.assertIsNotNone(requests_mock.call_args[1]['data'], "")
             self.assertEqual(requests_mock.call_args[1]['data']['name'], 'username', "")
@@ -87,7 +87,7 @@ class CouchDBSessionTest(unittest.TestCase):
             })
 
             self.assertTrue(requests_mock.called, "")
-            self.assertEqual(requests_mock.call_args[0][0], 'post', "")
+            self.assertEqual(requests_mock.call_args[0][0], 'POST', "")
             self.assertEqual(requests_mock.call_args[0][1], 'http://localhost:5984/_session', "")
             self.assertIsNotNone(requests_mock.call_args[1]['data'], "")
             self.assertEqual(requests_mock.call_args[1]['data']['name'], 'username', "")
