@@ -8,7 +8,6 @@ import json
 import requests
 
 __author__ = "Rinat F Sabitov, Federico Gonzalez"
-__copyright__ = "Copyright 2015, The Cogent Project"
 __credits__ = ["Rinat F Sabitov", "Federico Gonzalez"]
 __license__ = "MIT"
 __version__ = "0.1.1"
