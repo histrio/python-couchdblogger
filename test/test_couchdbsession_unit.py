@@ -4,8 +4,12 @@
     Description: Tests - CouchDBSession
 '''
 from mock import Mock, patch
-from src.couchdblogger import CouchDBSession, requests
 import unittest
+
+import os, sys
+sys.path.insert(0, os.path.abspath("../src"))
+
+from couchdblogger import CouchDBSession, requests
 
 
 class CouchDBSessionTest(unittest.TestCase):

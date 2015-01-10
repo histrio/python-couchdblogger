@@ -4,9 +4,14 @@
     Description: Tests - CouchDBLogHandler
 '''
 from mock import Mock, patch
-from src.couchdblogger import CouchDBLogHandler, CouchDBSession, logging
 import unittest
 import json
+
+
+import sys, os
+sys.path.insert(0, os.path.abspath("../src"))
+
+from couchdblogger import CouchDBLogHandler, CouchDBSession, logging
 
 
 class CouchDBLogHandlerTest(unittest.TestCase):
