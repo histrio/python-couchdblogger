@@ -1,3 +1,0 @@
-"""
-    Couchdblogger modules
-"""

@@ -12,9 +12,12 @@ def read(fname):
     except IOError:
         return ''
 
+import couchdblogger
+VERSION = couchdblogger.__version__
+
 setup(
     name="couchdblogger",
-    version='0.0.9',
+    version=VERSION,
     description=read('DESCRIPTION'),
     keywords="couchdb logging logger handler",
     author="Rinat F Sabitov, Federico Gonzalez",
