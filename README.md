@@ -2,6 +2,7 @@ python-couchdblogger
 ====================
 
 [![Build Status](https://travis-ci.org/histrio/python-couchdblogger.svg?branch=master)](https://travis-ci.org/histrio/python-couchdblogger)
+[![Coverage Status](https://coveralls.io/repos/histrio/python-couchdblogger/badge.svg?branch=master)](https://coveralls.io/r/histrio/python-couchdblogger?branch=master)
 
 Simple module for logging to CouchDB. 
 Probably not best choise for logging backend, because CouchDB is not good with massive write operations. 
