@@ -25,7 +25,7 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.record.created = 1396988156
 
     def test_is_instance(self):
-        self.assertIsInstance(self.couchdb_handler, CouchDBLogHandler, "Is instance of CouchDBLogHandler")
+        self.assertTrue(isinstance(self.couchdb_handler, CouchDBLogHandler), "Is instance of CouchDBLogHandler")
         self.assertTrue(issubclass(CouchDBLogHandler, logging.StreamHandler), "Is subclass CouchDBLogHandler of logging.StreamHandler")
 
     @patch.object(logging.StreamHandler, '__init__')
@@ -35,7 +35,7 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.assertEqual(self.couchdb_handler.url, 'http://localhost:5984', "")
         self.assertEqual(self.couchdb_handler.database, 'logs', "")
         self.assertEqual(self.couchdb_handler.db_url, 'http://localhost:5984/logs', "")
-        self.assertIsInstance(self.couchdb_handler.session, CouchDBSession, "")
+        self.assertIsTrue(isinstance(self.couchdb_handler.session, CouchDBSession), "")
 
     @patch.object(logging.StreamHandler, '__init__')
     def test_init_username_none_ssl_true(self, *args):
@@ -45,7 +45,7 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.assertEqual(self.couchdb_handler.url, 'https://localhost:5984', "")
         self.assertEqual(self.couchdb_handler.database, 'logs', "")
         self.assertEqual(self.couchdb_handler.db_url, 'https://localhost:5984/logs', "")
-        self.assertIsInstance(self.couchdb_handler.session, CouchDBSession, "")
+        self.assertIsTrue(isinstance(self.couchdb_handler.session, CouchDBSession), "")
 
     @patch.object(logging.StreamHandler, '__init__')
     @patch.object(CouchDBSession, 'get')
@@ -56,7 +56,7 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.assertEqual(self.couchdb_handler.url, 'http://localhost:5984', "")
         self.assertEqual(self.couchdb_handler.database, 'logs', "")
         self.assertEqual(self.couchdb_handler.db_url, 'http://localhost:5984/logs', "")
-        self.assertIsInstance(self.couchdb_handler.session, CouchDBSession, "")
+        self.assertTrue(isinstance(self.couchdb_handler.session, CouchDBSession), "")
         self.assertTrue(CouchDBSession.get.called, "")
         self.assertEqual(CouchDBSession.get.call_args[0][0], 'http://localhost:5984/logs', "")
 
@@ -75,7 +75,7 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.assertEqual(self.couchdb_handler.url, 'http://localhost:5984', "")
         self.assertEqual(self.couchdb_handler.database, 'logs', "")
         self.assertEqual(self.couchdb_handler.db_url, 'http://localhost:5984/logs', "")
-        self.assertIsInstance(self.couchdb_handler.session, CouchDBSession, "")
+        self.assertTrue(isinstance(self.couchdb_handler.session, CouchDBSession), "")
         self.assertTrue(CouchDBSession.put.called, "")
         self.assertEqual(CouchDBSession.put.call_args[0][0], 'http://localhost:5984/logs', "")
 
@@ -92,10 +92,10 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.assertEqual(self.couchdb_handler.url, 'http://127.0.0.1:8080', "")
         self.assertEqual(self.couchdb_handler.database, 'logs-process', "")
         self.assertEqual(self.couchdb_handler.db_url, 'http://127.0.0.1:8080/logs-process', "")
-        self.assertIsInstance(self.couchdb_handler.session, CouchDBSession, "")
+        self.assertTrue(isinstance(self.couchdb_handler.session, CouchDBSession), "")
         self.assertTrue(CouchDBSession.post.called, "")
         self.assertEqual(CouchDBSession.post.call_args[0][0], 'http://127.0.0.1:8080/_session', "")
-        self.assertIsNotNone(CouchDBSession.post.call_args[1]['data'], "")
+        self.assertTrue(CouchDBSession.post.call_args[1]['data'] is not None, "")
         self.assertEqual(CouchDBSession.post.call_args[1]['data']['name'], 'user', "")
         self.assertEqual(CouchDBSession.post.call_args[1]['data']['password'], 'secret', "")
 
@@ -112,10 +112,10 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.assertEqual(self.couchdb_handler.url, 'https://user:secret@127.0.0.1:8080', "")
         self.assertEqual(self.couchdb_handler.database, 'logs-process', "")
         self.assertEqual(self.couchdb_handler.db_url, 'https://user:secret@127.0.0.1:8080/logs-process', "")
-        self.assertIsInstance(self.couchdb_handler.session, CouchDBSession, "")
+        self.assertTrue(isinstance(self.couchdb_handler.session, CouchDBSession), "")
         self.assertTrue(CouchDBSession.post.called, "")
         self.assertEqual(CouchDBSession.post.call_args[0][0], 'https://user:secret@127.0.0.1:8080/_session', "")
-        self.assertIsNotNone(CouchDBSession.post.call_args[1]['data'], "")
+        self.assertTrue(CouchDBSession.post.call_args[1]['data'] is not None, "")
         self.assertEqual(CouchDBSession.post.call_args[1]['data']['name'], 'user', "")
         self.assertEqual(CouchDBSession.post.call_args[1]['data']['password'], 'secret', "")
 
@@ -130,8 +130,8 @@ class CouchDBLogHandlerTest(unittest.TestCase):
 
         self.assertTrue(CouchDBSession.post.called, "")
         self.assertEqual(CouchDBSession.post.call_args[0][0], 'http://localhost:5984/logs', "")
-        self.assertIsNotNone(CouchDBSession.post.call_args[1]['data'], "")
-        self.assertIsNotNone(CouchDBSession.post.call_args[1]['headers'], "")
+        self.assertTrue(CouchDBSession.post.call_args[1]['data'] is not None, "")
+        self.assertTrue(CouchDBSession.post.call_args[1]['headers'] is not None, "")
 
         left_data = json.loads(CouchDBSession.post.call_args[1]['data'])
         right_data = json.loads('{"logger": "process_name", "created": 1396988156, "message": "log to couchdb", "level": "level INFO"}')
