@@ -35,7 +35,7 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.assertEqual(self.couchdb_handler.url, 'http://localhost:5984', "")
         self.assertEqual(self.couchdb_handler.database, 'logs', "")
         self.assertEqual(self.couchdb_handler.db_url, 'http://localhost:5984/logs', "")
-        self.assertIsTrue(isinstance(self.couchdb_handler.session, CouchDBSession), "")
+        self.assertTrue(isinstance(self.couchdb_handler.session, CouchDBSession), "")
 
     @patch.object(logging.StreamHandler, '__init__')
     def test_init_username_none_ssl_true(self, *args):
@@ -45,7 +45,7 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.assertEqual(self.couchdb_handler.url, 'https://localhost:5984', "")
         self.assertEqual(self.couchdb_handler.database, 'logs', "")
         self.assertEqual(self.couchdb_handler.db_url, 'https://localhost:5984/logs', "")
-        self.assertIsTrue(isinstance(self.couchdb_handler.session, CouchDBSession), "")
+        self.assertTrue(isinstance(self.couchdb_handler.session, CouchDBSession), "")
 
     @patch.object(logging.StreamHandler, '__init__')
     @patch.object(CouchDBSession, 'get')

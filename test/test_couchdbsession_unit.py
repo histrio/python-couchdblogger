@@ -18,7 +18,7 @@ class CouchDBSessionTest(unittest.TestCase):
         self.couchdb_session = CouchDBSession()
 
     def test_is_instance(self):
-        self.assertIsInstance(self.couchdb_session, CouchDBSession, "Is instance of CouchDBSession")
+        self.assertTrue(isinstance(self.couchdb_session, CouchDBSession), "Is instance of CouchDBSession")
         self.assertTrue(issubclass(CouchDBSession, requests.Session), "Is subclass CouchDBSession of requests.Session")
 
     def test_exception(self):
@@ -36,7 +36,7 @@ class CouchDBSessionTest(unittest.TestCase):
             self.assertTrue(requests_mock.called, "")
             self.assertEqual(requests_mock.call_args[0][0].upper(), 'POST', "")
             self.assertEqual(requests_mock.call_args[0][1], 'http://localhost:5984/_session', "")
-            self.assertIsNotNone(requests_mock.call_args[1]['data'], "")
+            self.assertTrue(requests_mock.call_args[1]['data'] is not None, "")
             self.assertEqual(requests_mock.call_args[1]['data']['name'], 'username', "")
             self.assertEqual(requests_mock.call_args[1]['data']['password'], 'password', "")
             self.assertEqual(len(requests_mock.call_args_list), 1, "")
@@ -55,7 +55,7 @@ class CouchDBSessionTest(unittest.TestCase):
             self.assertTrue(requests_mock.called, "")
             self.assertEqual(requests_mock.call_args[0][0].upper(), 'POST', "")
             self.assertEqual(requests_mock.call_args[0][1], 'https://localhost:5984/_session', "")
-            self.assertIsNotNone(requests_mock.call_args[1]['data'], "")
+            self.assertTrue(requests_mock.call_args[1]['data'] is not None, "")
             self.assertEqual(requests_mock.call_args[1]['data']['name'], 'username', "")
             self.assertEqual(requests_mock.call_args[1]['data']['password'], 'password', "")
             self.assertTrue(requests_mock.call_args[1]['verify'], "")
@@ -75,7 +75,7 @@ class CouchDBSessionTest(unittest.TestCase):
             self.assertTrue(requests_mock.called, "")
             self.assertEqual(requests_mock.call_args[0][0].upper(), 'POST', "")
             self.assertEqual(requests_mock.call_args[0][1], 'http://localhost:5984/_session', "")
-            self.assertIsNotNone(requests_mock.call_args[1]['data'], "")
+            self.assertTrue(requests_mock.call_args[1]['data'] is not None, "")
             self.assertEqual(requests_mock.call_args[1]['data']['name'], 'username', "")
             self.assertEqual(requests_mock.call_args[1]['data']['password'], 'password', "")
             self.assertEqual(len(requests_mock.call_args_list), 1, "")
@@ -93,7 +93,7 @@ class CouchDBSessionTest(unittest.TestCase):
             self.assertTrue(requests_mock.called, "")
             self.assertEqual(requests_mock.call_args[0][0].upper(), 'POST', "")
             self.assertEqual(requests_mock.call_args[0][1], 'http://localhost:5984/_session', "")
-            self.assertIsNotNone(requests_mock.call_args[1]['data'], "")
+            self.assertTrue(requests_mock.call_args[1]['data'] isnot None, "")
             self.assertEqual(requests_mock.call_args[1]['data']['name'], 'username', "")
             self.assertEqual(requests_mock.call_args[1]['data']['password'], 'password', "")
             self.assertEqual(len(requests_mock.call_args_list), 1, "")
