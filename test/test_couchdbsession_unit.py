@@ -93,7 +93,7 @@ class CouchDBSessionTest(unittest.TestCase):
             self.assertTrue(requests_mock.called, "")
             self.assertEqual(requests_mock.call_args[0][0].upper(), 'POST', "")
             self.assertEqual(requests_mock.call_args[0][1], 'http://localhost:5984/_session', "")
-            self.assertTrue(requests_mock.call_args[1]['data'] isnot None, "")
+            self.assertTrue(requests_mock.call_args[1]['data'] is not None, "")
             self.assertEqual(requests_mock.call_args[1]['data']['name'], 'username', "")
             self.assertEqual(requests_mock.call_args[1]['data']['password'], 'password', "")
             self.assertEqual(len(requests_mock.call_args_list), 1, "")
