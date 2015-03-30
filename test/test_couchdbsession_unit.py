@@ -66,11 +66,10 @@ class CouchDBSessionTest(unittest.TestCase):
         request_resp = Mock()
         request_resp.status_code = 404
         with patch('requests.Session.request', Mock(return_value=request_resp)) as requests_mock:
-            with self.assertRaises(CouchDBSession.CouchDBException):
-                self.couchdb_session.post('http://localhost:5984/_session', data={
+            self.assertRaises(CouchDBSession.CouchDBException, lambda: self.couchdb_session.post('http://localhost:5984/_session', data={
                 'name': 'username',
                 'password': 'password'
-            })
+            }))
 
             self.assertTrue(requests_mock.called, "")
             self.assertEqual(requests_mock.call_args[0][0].upper(), 'POST', "")
@@ -84,11 +83,11 @@ class CouchDBSessionTest(unittest.TestCase):
         request_resp = Mock()
         request_resp.status_code = 401
         with patch('requests.Session.request', Mock(return_value=request_resp)) as requests_mock:
-            with self.assertRaises(CouchDBSession.CouchDBException):
-                self.couchdb_session.post('http://localhost:5984/_session', data={
+            self.assertRaises(CouchDBSession.CouchDBException,
+                    lambda: self.couchdb_session.post('http://localhost:5984/_session', data={
                 'name': 'username',
                 'password': 'password'
-            })
+            }))
 
             self.assertTrue(requests_mock.called, "")
             self.assertEqual(requests_mock.call_args[0][0].upper(), 'POST', "")
