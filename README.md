@@ -1,6 +1,8 @@
 python-couchdblogger
 ====================
 
+[![Build Status](https://travis-ci.org/histrio/python-couchdblogger.svg?branch=master)](https://travis-ci.org/histrio/python-couchdblogger)
+
 Simple module for logging to CouchDB. 
 Probably not best choise for logging backend, because CouchDB is not good with massive write operations. 
 
