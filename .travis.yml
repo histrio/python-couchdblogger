@@ -17,7 +17,7 @@ notifications:
     on_failure: change
 
 install:
-- pip install -r tests/requirements.txt
+- pip install -r test/requirements.txt
 - pip install coveralls
 - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then pip install unittest2; fi
 
