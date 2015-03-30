@@ -90,7 +90,7 @@ class CouchDBSession(requests.Session):
         return resp
 
 
-class CouchDBLogHandler(logging.StreamHandler):
+class CouchDBLogHandler(logging.StreamHandler, object):
     """
         CouchDBLogHandler that inherits from logging.StreamHandler
 
