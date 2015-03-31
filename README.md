@@ -6,6 +6,8 @@ python-couchdblogger
 [![PyPI](https://img.shields.io/pypi/dm/couchdblogger.svg)]()
 [![Requirements Status](https://requires.io/github/histrio/python-couchdblogger/requirements.svg?branch=master&style=flat)](https://requires.io/github/histrio/python-couchdblogger/requirements/?branch=master)
 
+[![Supported Python versions](https://pypip.in/py_versions/couchdblogger/badge.svg)](https://pypi.python.org/pypi/couchdblogger/)
+
 Simple module for logging to CouchDB. 
 Probably not best choise for logging backend, because CouchDB is not good with massive write operations. 
 
