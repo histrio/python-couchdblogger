@@ -199,7 +199,7 @@ class CouchDBLogHandler(logging.StreamHandler, object):
                             the record is emitted
         """
         return json.dumps(dict(
-            message=record.msg,
+            message=record.getMessage(),
             level=record.levelname,
             created=record.created,
             logger=record.name
