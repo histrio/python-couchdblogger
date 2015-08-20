@@ -212,6 +212,9 @@ class CouchDBLogHandler(logging.StreamHandler, object):
         :param record: loggging record
         """
         headers = {'Content-type': 'application/json'}
-        self.session.post(self.db_url, data=self.format(record),
-            headers=headers
-        )
+        try:
+            self.session.post(self.db_url, data=self.format(record), headers=headers)
+        except (KeyboardInterrupt, SystemExit):
+            raise
+        except:
+            self.handleError(record)
