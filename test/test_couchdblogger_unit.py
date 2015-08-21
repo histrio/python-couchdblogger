@@ -20,7 +20,7 @@ class CouchDBLogHandlerTest(unittest.TestCase):
         self.couchdb_handler = CouchDBLogHandler()
         self.record = Mock()
         self.record.name = 'process_name'
-        self.record.msg = 'log to couchdb'
+        self.record.getMessage.return_value = 'log to couchdb'
         self.record.levelname = 'level INFO'
         self.record.created = 1396988156
 
@@ -144,7 +144,7 @@ class CouchDBLogHandlerTest(unittest.TestCase):
 
         def format_function(record):
             json_to_post = json.dumps(dict(
-                message=record.msg,
+                message=record.getMessage(),
                 log_level=record.levelname,
                 name_logger=record.name,
                 extra_message='message',
@@ -158,7 +158,7 @@ class CouchDBLogHandlerTest(unittest.TestCase):
 
     def test_new_format_with_lambda(self):
         id_format = id(self.couchdb_handler.format)
-        self.couchdb_handler.new_format(lambda record: json.dumps(dict(message=record.msg, log_level=record.levelname, name_logger=record.name, extra_message='message', log_date_time=record.asctime)))
+        self.couchdb_handler.new_format(lambda record: json.dumps(dict(message=record.getMessage(), log_level=record.levelname, name_logger=record.name, extra_message='message', log_date_time=record.asctime)))
 
         self.assertNotEqual(id_format, id(self.couchdb_handler.format), "")
 
