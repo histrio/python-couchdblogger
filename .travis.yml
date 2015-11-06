@@ -19,7 +19,7 @@ notifications:
 before_install:
   # Install coverage tools (On 3.2 the new coverage is broken, use an old one)
   # https://github.com/menegazzo/travispy/issues/20
-  - if [ $TRAVIS_PYTHON_VERSION == 3.2 ];
+  - if [[ $TRAVIS_PYTHON_VERSION == '3.2' ]];
     then pip install coverage<4; else
     pip install coverage;
     fi
