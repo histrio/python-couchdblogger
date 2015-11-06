@@ -16,16 +16,18 @@ notifications:
     on_success: change
     on_failure: change
 
+before_install:
+  # Install coverage tools (On 3.2 the new coverage is broken, use an old one)
+  # https://github.com/menegazzo/travispy/issues/20
+  - if [ $TRAVIS_PYTHON_VERSION == 3.2 ];
+    then pip install coverage<4; else
+    pip install coverage;
+    fi
+  - pip install coveralls
+
 install:
-- pip install -r test/requirements.txt
-- pip install coveralls
 - if [[ $TRAVIS_PYTHON_VERSION == '2.6' ]]; then pip install unittest2; fi
-# Install coverage tools (On 3.2 the new coverage is broken, use an old one)
-# https://github.com/menegazzo/travispy/issues/20
-- if [[ $TRAVIS_PYTHON_VERSION == '3.2' ]];
-  then pip install coverage<4; else
-  pip install coverage;
-  fi
+- pip install -r test/requirements.txt
 
 script:
 - nosetests --with-coverage --cover-erase --cover-package=couchdblogger
