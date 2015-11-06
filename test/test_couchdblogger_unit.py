@@ -162,6 +162,31 @@ class CouchDBLogHandlerTest(unittest.TestCase):
 
         self.assertNotEqual(id_format, id(self.couchdb_handler.format), "")
 
+    @patch.object(CouchDBSession, 'post')
+    def test_emit_exit_exceptions(self, post_request):
+
+        exception = KeyboardInterrupt
+        post_request.side_effect = exception
+
+        self.assertRaises(KeyboardInterrupt,
+                          self.couchdb_handler.emit, self.record)
+
+        exception = SystemExit
+        post_request.side_effect = exception
+
+        self.assertRaises(SystemExit,
+                          self.couchdb_handler.emit, self.record)
+
+    @patch.object(CouchDBSession, 'post')
+    # @patch.object(CouchDBLogHandler, 'handleError')
+    def test_emit_error_handle(self, post_request):
+        exception = AttributeError
+        post_request.side_effect = exception
+        self.couchdb_handler.handleError = Mock()
+
+        self.couchdb_handler.emit(self.record)
+        self.couchdb_handler.handleError.assert_called_with(self.record)
+
 
 if __name__ == '__main__':
     unittest.TextTestRunner(verbosity=2).run(unittest.TestLoader().loadTestsFromTestCase(CouchDBLogHandlerTest))
